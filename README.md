@@ -6,11 +6,12 @@
 
 A somewhat minimal implementation of the auditory spectrogram (`Audiospect`)
 and cortical model (`cortical`, `scalefitler`, `ratefilter`) as described in the following paper:
-Refer to the documentation of each function (ala ? at the REPL)for more information.
 
 [Chi, T., Ru, P., & Shamma, S. A. (2005). Multiresolution spectrotemporal
 analysis of complex sounds. The Journal of the Acoustical Society of America,
 118(2), 887–906.](http://doi.org/10.1121/1.1945807)
+
+Refer to the documentation of each function (ala ? at the REPL)for more information.
 
 You can find the original MATLAB implementation of these models
 [here](https://isr.umd.edu/Labs/NSL/Software.htm).
