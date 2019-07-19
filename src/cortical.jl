@@ -119,7 +119,7 @@ Apply the filter bank using `filt`, like so:
 
 ```julia
 using FileIO
-using ShammaModel
+using CorticalSpectralTemporalResponses
 
 x = load("testsound.wav")
 X = filt(audiospect,x)
@@ -180,7 +180,7 @@ Apply the filter bank using `filt`, like so:
 
 ```julia
 using FileIO
-using ShammaModel
+using CorticalSpectralTemporalResponses
 
 x = load("testsound.wav")
 X = filt(audiospect,x)
@@ -232,7 +232,7 @@ Apply the filter bank using `filt`, like so:
 
 ```julia
 using FileIO
-using ShammaModel
+using CorticalSpectralTemporalResponses
 
 x = load("testsound.wav")
 X = filt(audiospect,x)

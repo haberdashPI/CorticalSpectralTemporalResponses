@@ -1,7 +1,7 @@
-name = "ShammaModel"
-uuid = "80f90042-ac61-11e8-0ace-f1a8d5e03555"
+name = "CorticalSpectralTemporalResponses"
+uuid = "82ec0db2-aa68-11e9-08e4-e3d69fc08b96"
 authors = ["David Little <david.frank.little@gmail.com>"]
-version = "0.3.2"
+version = "0.4.0"
 
 [deps]
 AxisArrays = "39de3d68-74b9-583c-8d2d-e117c070f3a9"

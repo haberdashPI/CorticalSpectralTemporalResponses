@@ -98,7 +98,7 @@ Keyword argument constructor for an auditory spectrogram frequency
 filterbank. Can be applied to a time amplitude signal using `filt`, like so:
 
 ```julia
-using ShammaModel
+using CorticalSpectralTemporalResponses
 using FileIO
 
 as = Audiospect()

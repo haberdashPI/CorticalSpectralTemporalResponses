@@ -1,4 +1,5 @@
-module ShammaModel
+module CorticalSpectralTemporalResponses
+
 using DataFrames
 using Unitful
 using Unitful: ms, s, Hz, kHz
@@ -40,7 +41,7 @@ function __init__()
 
   merge!(Unitful.basefactors, localunits)
   merge!(Unitful.promotion, localpromotion)
-  Unitful.register(ShammaModel)
+  Unitful.register(CorticalSpectralTemporalResponses)
 end
 
-end
+end # module

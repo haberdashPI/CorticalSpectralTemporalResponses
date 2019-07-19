@@ -1,8 +1,8 @@
-# ShammaModel
+# CorticalSpectralTemporalResponses
 
-[![Build Status](https://travis-ci.org/haberdashPI/ShammaModel.jl.svg?branch=master)](https://travis-ci.org/haberdashPI/ShammaModel.jl)
+[![Build Status](https://travis-ci.org/haberdashPI/CorticalSpectralTemporalResponses.jl.svg?branch=master)](https://travis-ci.org/haberdashPI/CorticalSpectralTemporalResponses.jl)
 [![Build status](https://ci.appveyor.com/api/projects/status/ug0f5wnn3q6rai7s?svg=true)](https://ci.appveyor.com/project/haberdashPI/shammamodel-jl)
-[![codecov](https://codecov.io/gh/haberdashPI/ShammaModel.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/haberdashPI/ShammaModel.jl)
+[![codecov](https://codecov.io/gh/haberdashPI/CorticalSpectralTemporalResponses.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/haberdashPI/CorticalSpectralTemporalResponses.jl)
 
 A somewhat minimal implementation of the auditory spectrogram (`Audiospect`)
 and cortical model (`cortical`, `scalefitler`, `ratefilter`) as described in the following paper:
