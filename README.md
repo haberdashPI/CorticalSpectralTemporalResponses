@@ -1,8 +1,9 @@
 # CorticalSpectralTemporalResponses
 
+[![Build Status](https://travis-ci.org/haberdashPI/CorticalSpectralTemporalResponses.svg?branch=master)](https://travis-ci.org/haberdashPI/CorticalSpectralTemporalResponses)
 [![Build Status](https://travis-ci.org/haberdashPI/CorticalSpectralTemporalResponses.jl.svg?branch=master)](https://travis-ci.org/haberdashPI/CorticalSpectralTemporalResponses.jl)
 [![Build status](https://ci.appveyor.com/api/projects/status/2g3iobvy3uecljhw?svg=true)](https://ci.appveyor.com/project/haberdashPI/corticalspectraltemporalresponses)
-[![codecov](https://codecov.io/gh/haberdashPI/CorticalSpectralTemporalResponses.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/haberdashPI/CorticalSpectralTemporalResponses.jl)
+[![codecov](https://codecov.io/gh/haberdashPI/CorticalSpectralTemporalResponses/branch/master/graph/badge.svg)](https://codecov.io/gh/haberdashPI/CorticalSpectralTemporalResponses)
 
 A somewhat minimal implementation of the auditory spectrogram (`Audiospect`)
 and cortical model (`cortical`, `scalefitler`, `ratefilter`) as described in the following paper:

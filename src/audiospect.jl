@@ -73,14 +73,9 @@ function Δf(params::MetaAxisLike)
   @assert !isempty(params.freq.cochlear.filters) 
   2^(1/24)
 end
-usamplerate(params::MetaAxisLike) = uconvert(Hz,params.time.fs)
 SampledSignals.samplerate(params::MetaAxisLike) = ustrip(uconvert(Hz,params.time.fs))
 
 Δt(x) = (ts = times(x); ts[2] - ts[1])
-usamplerate(x::SampleBuf) = samplerate(x)*Hz
-
-default_sr(x) = 8000.0Hz
-default_sr(x::SampleBuf) = usamplerate(x)
 
 struct Audiospect{P <: AxisMeta}
   params::P
@@ -121,8 +116,8 @@ function Audiospect(;delta_t=10ms,Δt=delta_t,
 
   recommended_length = 2^(4+freq.octave_shift)
   if frame_length(time) < recommended_length
-    warn("It's recommended that you have a frame length of at least,"*
-         " $recommended_length samples, but you have $(frame_length(p)).")
+    @warn("It's recommended that you have a frame length of at least"*
+          " $recommended_length samples, but you have $(frame_length(time)).")
   end
   
   Audiospect(AxisMeta(time = time,freq = freq))
@@ -141,8 +136,8 @@ function DSP.filt(f::Audiospect,x::AbstractArray,progressbar=true)
 end
 
 function DSP.filt(f::Audiospect,x::AxisArray,progressbar=true)
-  @assert hastimes(x)
-  if step(times(x)) != (1/fixed_fs)*s
+  @assert hastimes(x) isa HasTimes
+  if !(1/step(times(x)) ≈ fixed_fs)
     error("Expected samplerate of $(fixed_fs) Hz.")
   end
   filter_audiospect(x,f.params,progressbar)
