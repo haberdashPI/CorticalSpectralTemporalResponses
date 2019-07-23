@@ -25,5 +25,5 @@ straightforward to use. Take a look at `test/runtests.jl` for examples.
 
 ## TODO
 
-- Document function interfaces
+- Document function interfaces (double-check the examples)
 - And a few example uses, and usage with `PlotAxes` for visualization.
