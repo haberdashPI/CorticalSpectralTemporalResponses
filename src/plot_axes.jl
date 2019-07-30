@@ -1,19 +1,6 @@
 export logrange
 using Compat
 
-# like the log function, but if it is broadcasted over values that are close to
-# a range (in log space), it converts the result to a range representation
-logrange(x) = log(x)
-PlotAxes.fn_prefix(x::typeof(logrange)) = "log"
-function Base.Broadcast.broadcasted(f::typeof(logrange),vals)
-  logvals = log.(ustrip.(vals))
-  if std(diff(logvals)) < 1e-8
-    range(first(logvals),last(logvals),length=length(logvals))
-  else
-    logvals
-  end
-end
-
 function PlotAxes.asplotable(x::AuditorySpectrogram,args...;quantize=(100,128),
     kwds...)
   args = replace(collect(args),:freq => (:freq => logrange))
