@@ -1,5 +1,6 @@
 # CorticalSpectralTemporalResponses
 
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Build Status](https://travis-ci.org/haberdashPI/CorticalSpectralTemporalResponses.svg?branch=master)](https://travis-ci.org/haberdashPI/CorticalSpectralTemporalResponses)
 [![Build status](https://ci.appveyor.com/api/projects/status/2g3iobvy3uecljhw?svg=true)](https://ci.appveyor.com/project/haberdashPI/corticalspectraltemporalresponses)
 [![codecov](https://codecov.io/gh/haberdashPI/CorticalSpectralTemporalResponses/branch/master/graph/badge.svg)](https://codecov.io/gh/haberdashPI/CorticalSpectralTemporalResponses)
