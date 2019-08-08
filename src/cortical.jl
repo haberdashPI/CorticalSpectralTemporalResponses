@@ -226,7 +226,7 @@ Define a joint scale-rate filter bank at the given scales and rates (these
 are assumed to be in cycles per octave and Hz respectively, but can be
 specified with different units via `Unitful`). The scales and rates can be
 either both as positional arguments or both as keyword arguments. To compute
-use inverse of the filter-bank call `inv`.
+the inverse of the filter-bank call `inv`.
 
 Apply the filter bank using `filt`, like so:
 
