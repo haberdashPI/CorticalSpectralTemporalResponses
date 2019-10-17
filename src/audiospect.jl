@@ -135,9 +135,12 @@ function DSP.filt(f::Audiospect,x::AbstractArray,progressbar=true)
   filter_audiospect(x,f.params,progressbar)
 end
 
+inHz(x::Number) = x
+inHz(x::Quantity) = ustrip(uconvert(Hz,x))
+
 function DSP.filt(f::Audiospect,x::AxisArray,progressbar=true)
   @assert hastimes(x) isa HasTimes
-  if !(1/step(times(x)) ≈ fixed_fs)
+  if !(inHz(1/step(times(x))) ≈ fixed_fs)
     error("Expected samplerate of $(fixed_fs) Hz.")
   end
   filter_audiospect(x,f.params,progressbar)
