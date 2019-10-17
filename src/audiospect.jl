@@ -7,7 +7,7 @@ using SampledSignals
 using Statistics
 using Unitful: s
 
-export frequencies, times, nfrequencies, ntimes, delta_t, delta_f, Δt, Δf, 
+export frequencies, times, nfrequencies, ntimes, delta_t, delta_f, Δt, Δf,
   frame_length, audiospect, freq_ticks, duration, hastimes, HasTimes, HasNoTimes,
   timedim, describe_axes, Audiospect, AudiospectInv, filt
 
@@ -34,7 +34,7 @@ struct FreqAxis{T}
 end
 
 const WithAxes{Ax} = AxisArray{<:Any,<:Any,<:Any,Ax}
-const AuditorySpectrogram = 
+const AuditorySpectrogram =
   MetaAxisArray{<:WithAxes{<:Tuple{Axis{:time},Axis{:freq}}}}
 
 resultname(x::AuditorySpectrogram) = "Auditory Spectrogram"
@@ -44,7 +44,7 @@ num_base_freqs(x::MetaAxisArray) = num_base_freqs(getmeta(x))
 nfrequencies(x) = length(frequencies(x))
 
 function frequencies(x::AxisMeta)
-  result = (440.0Hz * 2.0.^(((1:num_base_freqs(x)).-31)./24 .+ 
+  result = (440.0Hz * 2.0.^(((1:num_base_freqs(x)).-31)./24 .+
     x.freq.octave_shift))
   result[1:x.freq.step:end]
 end
@@ -69,8 +69,8 @@ delta_f(x) = Δf(x)
 frame_length(params::MetaAxisLike) = frame_length(params.time)
 frame_length(ax::TimeAxis) = floor(Int,ax.Δ * ax.fs)
 Δt(params::MetaAxisLike) = params.time.Δ
-function Δf(params::MetaAxisLike) 
-  @assert !isempty(params.freq.cochlear.filters) 
+function Δf(params::MetaAxisLike)
+  @assert !isempty(params.freq.cochlear.filters)
   2^(1/24)
 end
 SampledSignals.samplerate(params::MetaAxisLike) = ustrip(uconvert(Hz,params.time.fs))
@@ -111,7 +111,7 @@ function Audiospect(;delta_t=10ms,Δt=delta_t,
                           octave_shift=-1)
 
   time = TimeAxis(asseconds(Δt),Float64(decay_tc),asHz(fixed_fs))
-  freq = FreqAxis(Float64(nonlinear),Float64(octave_shift),Int(freq_step), 
+  freq = FreqAxis(Float64(nonlinear),Float64(octave_shift),Int(freq_step),
     cochlear[])
 
   recommended_length = 2^(4+freq.octave_shift)
@@ -119,7 +119,7 @@ function Audiospect(;delta_t=10ms,Δt=delta_t,
     @warn("It's recommended that you have a frame length of at least"*
           " $recommended_length samples, but you have $(frame_length(time)).")
   end
-  
+
   Audiospect(AxisMeta(time = time,freq = freq))
 end
 struct DefaultAudiospect
@@ -179,13 +179,13 @@ function filter_audiospect__(x::AbstractVector{T}, N, params::MetaAxisLike,
   progress = progressbar ? Progress(desc="Auditory Spectrogram: ",M-1) : nothing
   for ch = (M-1):-1:1
     # initial haircell transduction
-    y,last_haircell = x |> 
+    y,last_haircell = x |>
       filters[ch] |>
       x -> ion_channels(x,params) |>
       x -> haircell_membrane(x,params) |>
       x -> lateral_inhibition(x,last_haircell)
 
-    # recitfication and temporal integration
+    # rectification and temporal integration
     Y[:,ch] = y |> rectify |> temporal_integration(params,N)
 
     # save the intermediate result y if this is an internal call
