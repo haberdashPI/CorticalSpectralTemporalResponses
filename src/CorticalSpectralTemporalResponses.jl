@@ -1,6 +1,5 @@
 module CorticalSpectralTemporalResponses
 
-using DataFrames
 using Unitful
 using Unitful: ms, s, Hz, kHz
 using ProgressMeter
