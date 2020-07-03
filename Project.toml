@@ -23,7 +23,7 @@ Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
 [compat]
 AxisArrays = "0.3, 0.4"
 Colors = "0.9"
-Compat = "2"
+Compat = "2, 3.13"
 DSP = "0.5.1, 0.6"
 FFTW = "0.2.4, 0.3, 1"
 FileIO = "1"
