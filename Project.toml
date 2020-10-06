@@ -1,7 +1,7 @@
 name = "CorticalSpectralTemporalResponses"
 uuid = "82ec0db2-aa68-11e9-08e4-e3d69fc08b96"
 authors = ["David Little <david.frank.little@gmail.com>"]
-version = "0.5"
+version = "0.5.1"
 
 [deps]
 AxisArrays = "39de3d68-74b9-583c-8d2d-e117c070f3a9"
@@ -22,8 +22,8 @@ Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
 
 [compat]
 AxisArrays = "0.3, 0.4"
-Colors = "0.9"
-Compat = "2"
+Colors = "0.9,0.10,0.11,0.12"
+Compat = "2,3"
 DSP = "0.5.1, 0.6"
 FFTW = "0.2.4, 0.3, 1"
 FileIO = "1"
@@ -33,5 +33,13 @@ MetaArrays = "0.2, 0.3"
 ProgressMeter = "0.6,0.7,0.8,0.9,1"
 Requires = "0.5.2,1"
 SampledSignals = "2"
-Unitful = "0.11,0.12,0.13,0.14,0.15,0.16,0.17,0.18,1"
+Unitful = "0.11,0.12,0.13,0.14,0.15,0.16,0.17,0.18,0.19,1"
 julia = "1"
+
+[extras]
+PlotAxes = "8b6f5f00-d239-11e8-3a24-33314b00f6b0"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["PlotAxes", "Test"]
+
