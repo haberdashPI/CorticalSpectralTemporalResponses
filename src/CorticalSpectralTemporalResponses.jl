@@ -4,7 +4,6 @@ using Unitful
 using Unitful: ms, s, Hz, kHz
 using ProgressMeter
 using Requires
-using PlotAxes
 
 export ms, s, Hz, kHz
 
@@ -37,6 +36,8 @@ function __init__()
     end
     CochFilters(filters,file["norm"])
   end
+
+  @require PlotAxes = "8b6f5f00-d239-11e8-3a24-33314b00f6b0" include("plot_axes.jl")
 
   merge!(Unitful.basefactors, localunits)
   merge!(Unitful.promotion, localpromotion)
