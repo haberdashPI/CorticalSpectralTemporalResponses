@@ -1,7 +1,7 @@
 name = "CorticalSpectralTemporalResponses"
 uuid = "82ec0db2-aa68-11e9-08e4-e3d69fc08b96"
 authors = ["David Little <david.frank.little@gmail.com>"]
-version = "0.5.1"
+version = "0.5.0"
 
 [deps]
 AxisArrays = "39de3d68-74b9-583c-8d2d-e117c070f3a9"
