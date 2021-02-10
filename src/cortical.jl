@@ -40,7 +40,7 @@ end
 const default = DefaultValue()
 withdefault(x,default) = x
 withdefault(::DefaultValue,default) = default
-function checkmatch(pos,kwd,name) 
+function checkmatch(pos,kwd,name)
   if pos !== kwd
     error("Cannot specify both a position and keyword value for $name.")
   end
@@ -164,8 +164,8 @@ end
 axisname(x::FreqScaleFilter) = x.axis
 fromaxis(x::FreqScaleFilter) = :freq
 AxisArrays.axisnames(x::FreqScaleFilter) = (x.axis,)
-list_filters(fir,cs,scales::FreqScaleFilter) = 
-  ((Axis{axisname(scales)}(i), [HS; zero(HS)]') 
+list_filters(fir,cs,scales::FreqScaleFilter) =
+  ((Axis{axisname(scales)}(i), [HS; zero(HS)]')
    for (i,HS) in enumerate(scale_filters(fir,cs,axisname(scales))))
 
 """
@@ -173,7 +173,7 @@ list_filters(fir,cs,scales::FreqScaleFilter) =
 
 Define a spectral-scale filter bank at the given scales (assumed to be in
 cycles/octave). The scales can be either a positional or keyword argument. To
-compute use inverse of the filter-bank call `inv`. Uses default_scales if the 
+compute use inverse of the filter-bank call `inv`. Uses default_scales if the
 scales are unspecified.
 
 Apply the filter bank using `filt`, like so:
@@ -193,7 +193,7 @@ function scalefilter(s=default;scales=withdefault(s,default_scales),
     bandonly=false,axis=:scale)
   checkmatch(s,scales,"scales")
   scales = ascycoct.(scales)
-  
+
   if axis != :scale && !occursin("scale",string(axis))
     error("Scale axis name `$axis` must contain the word 'scale'.")
   end
@@ -210,7 +210,7 @@ axisname(x::FreqScaleFilterInv) = axisname(x.scales)
 AxisArrays.axisnames(x::FreqScaleFilterInv) = (axisname(x.scales),)
 Base.inv(scales::FreqScaleFilter;norm=0.9) = FreqScaleFilterInv(scales,norm)
 list_filters(z_cum,cr,scaleinv::FreqScaleFilterInv) =
-  ((i, [HS; zero(HS)]') 
+  ((i, [HS; zero(HS)]')
    for (i,HS) in enumerate(scale_filters(z_cum,cr,axisname(scaleinv))))
 
 # combination of both scales and rates
@@ -253,7 +253,7 @@ function cortical(s=default,r=default;
     ScaleRateFilter(scalefilter(scales,bandonly=bandonly,axis=axes[1]),
                     ratefilter(rates,bandonly=bandonly,axis=axes[2]))
 end
-cortical(scales::FreqScaleFilter,rates::TimeRateFilter) = 
+cortical(scales::FreqScaleFilter,rates::TimeRateFilter) =
   ScaleRateFilter(scales,rates)
 
 function DSP.filt(cort::ScaleRateFilter,cr::MetaAxisArray,progresbar=true)
@@ -320,7 +320,7 @@ function initfilter(y,ratefilter::TimeRateFilter)
 
   axar = AxisArray(zeros(complex(eltype(y)),length.(newax)...),newax...)
   arates = sort!(unique!(abs.(rates)))
-  rate_axis = bandonly ? 
+  rate_axis = bandonly ?
      RateAxis(-Inf*Hz,Inf*Hz) : RateAxis(first(arates),last(arates))
   axis_meta = addaxes(getmeta(y);Dict(axisname(ratefilter) => rate_axis)...)
   MetaAxisArray(axis_meta,axar)
@@ -334,7 +334,7 @@ function initfilter(y,scalefilter::FreqScaleFilter)
   newax = ax[1:end-1]...,s,ax[end]
 
   axar = AxisArray(zeros(complex(eltype(y)),length.(newax)...),newax...)
-  scale_axis = bandonly ? 
+  scale_axis = bandonly ?
     ScaleAxis(-Inf*cycoct,Inf*cycoct) :
     ScaleAxis(first(scales),last(scales))
   axis_meta = addaxes(getmeta(y);Dict(axisname(scalefilter) => scale_axis)...)
@@ -439,7 +439,7 @@ function scale_filters(Y,x,scaleax)
   scaleparam = getproperty(x,scaleax)
   map(scales(x)) do scale
 	  scale_filter(ustrip(uconvert(cycoct,scale)), N_f, spect_rate,
-                 scale <= scaleparam.low ? :low : 
+                 scale <= scaleparam.low ? :low :
                  scale < scaleparam.high ? :band : :high)
   end
 end

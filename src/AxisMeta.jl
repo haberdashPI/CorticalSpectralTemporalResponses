@@ -7,12 +7,12 @@ struct AxisMeta{Axs}
     axes::Axs # map from :axis -> metadata
 end
 AxisMeta(;kwds...) = AxisMeta(kwds.data)
-Base.getproperty(x::AxisMeta,field::Symbol) = 
+Base.getproperty(x::AxisMeta,field::Symbol) =
   getproperty(getfield(x,:axes),field)
 
 function validate(meta::AxisMeta,data::AxisArray)
     for field in fieldnames(typeof(Base.getfield(meta,:axes)))
-        if field ∉ axisnames(data) 
+        if field ∉ axisnames(data)
             error("Extra field `$field` in axis metadata.")
         end
     end
@@ -63,11 +63,7 @@ function Base.show(io::IO,mime::MIME"text/plain",x::MetaAxisArray)
   if get(io, :compact, false)
     println(io,resultname(x))
   else
-    if hastimes(x) isa HasTimes
-      println(io,string(duration(x))," ",resultname(x))
-    else
-      println(io,resultname(x))
-    end
+    println(io,resultname(x))
     describe_axes(io,x)
     if ndims(x) <= 2
       if eltype(x) <: Complex

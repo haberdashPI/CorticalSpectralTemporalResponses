@@ -3,12 +3,12 @@ using MetaArrays
 using DSP
 using JLD2
 using FileIO
-using SampledSignals
+using SignalBase
 using Statistics
 using Unitful: s
 
 export frequencies, times, nfrequencies, ntimes, delta_t, delta_f, Δt, Δf,
-  frame_length, audiospect, freq_ticks, duration, hastimes, HasTimes, HasNoTimes,
+  frame_length, audiospect, freq_ticks, hastimes, HasTimes, HasNoTimes,
   timedim, describe_axes, Audiospect, AudiospectInv, filt
 
 ########################################
@@ -60,9 +60,6 @@ hastimes(x::AuditorySpectrogram) = HasTimes()
 hastimes(x::MetaUnion{AxisArray}) = :time ∈ axisnames(x) ? HasTimes() : HasNoTimes()
 timedim(x::MetaUnion{AxisArray}) = axisdim(x,Axis{:time})
 
-duration(x::AbstractArray) = last(times(x)) - first(times(x))
-duration(x::SampleBuf) = nframes(x) / samplerate(x)
-
 delta_t(x) = Δt(x)
 delta_f(x) = Δf(x)
 
@@ -73,7 +70,7 @@ function Δf(params::MetaAxisLike)
   @assert !isempty(params.freq.cochlear.filters)
   2^(1/24)
 end
-SampledSignals.samplerate(params::MetaAxisLike) = ustrip(uconvert(Hz,params.time.fs))
+SignalBase.framerate(params::MetaAxisLike) = ustrip(uconvert(Hz,params.time.fs))
 
 Δt(x) = (ts = times(x); ts[2] - ts[1])
 
@@ -103,7 +100,7 @@ spect = filt(as,load("testsound.wav"))
 To compute the inverse, you can call `inv` and run `filt` on the result, like so:
 
 ```julia
-save("approxsound.wav",filter(inv(as),spect)))
+save("approxsound.wav",filt(inv(as),spect)))
 ```
 """
 function Audiospect(;delta_t=10ms,Δt=delta_t,
@@ -130,26 +127,15 @@ function DSP.filt(f::DefaultAudiospect,x::AbstractArray,progressbar=true)
   filt(Audiospect(),x,progressbar)
 end
 
-function DSP.filt(f::Audiospect,x::AbstractArray,progressbar=true)
-  @warn "Assuming sample rate of input is $(fixed_fs)."
-  filter_audiospect(x,f.params,progressbar)
-end
-
 inHz(x::Number) = x
 inHz(x::Quantity) = ustrip(uconvert(Hz,x))
 
-function DSP.filt(f::Audiospect,x::AxisArray,progressbar=true)
-  @assert hastimes(x) isa HasTimes
-  if !(inHz(1/step(times(x))) ≈ fixed_fs)
-    error("Expected samplerate of $(fixed_fs) Hz.")
-  end
-  filter_audiospect(x,f.params,progressbar)
-end
-
-function DSP.filt(f::Audiospect,x::SampleBuf,progressbar=true)
-  if samplerate(x) != fixed_fs
-    error("Expected samplerate of $(fixed_fs) Hz.")
-  end
+function DSP.filt(f::Audiospect,x::AbstractArray,progressbar=true)
+  # if ismissing(framerate(x))
+  @warn "Unknown framerate, assuming 8 kHz."
+  # elseif framerate(x) != fixed_fs
+    # error("Expected samplerate of $(fixed_fs) Hz.")
+  # end
   filter_audiospect(x,f.params,progressbar)
 end
 
@@ -278,7 +264,7 @@ function DSP.filt(f::AudiospectInv,y_in::AuditorySpectrogram,
   end
   ProgressMeter.finish!(prog)
 
-  SampleBuf(min_x,samplerate(y_in))
+  min_x
 end
 
 ########################################

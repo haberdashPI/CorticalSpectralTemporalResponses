@@ -1,7 +1,7 @@
 # CorticalSpectralTemporalResponses
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![Build Status](https://travis-ci.org/haberdashPI/CorticalSpectralTemporalResponses.svg?branch=master)](https://travis-ci.org/haberdashPI/CorticalSpectralTemporalResponses)
+[![GitHub Actions](https://github.com/haberdashPI/CorticalSpectralTemporalResponses/workflows/CI/badge.svg)](https://github.com/haberdashPI/CorticalSpectralTemporalResponses/actions?query=workflow%3ACI)
 [![codecov](https://codecov.io/gh/haberdashPI/CorticalSpectralTemporalResponses/branch/master/graph/badge.svg)](https://codecov.io/gh/haberdashPI/CorticalSpectralTemporalResponses)
 
 A somewhat minimal implementation of the auditory spectrogram (`Audiospect`)

@@ -1,7 +1,7 @@
 name = "CorticalSpectralTemporalResponses"
 uuid = "82ec0db2-aa68-11e9-08e4-e3d69fc08b96"
 authors = ["David Little <david.frank.little@gmail.com>"]
-version = "0.5.0"
+version = "0.6.0"
 
 [deps]
 AxisArrays = "39de3d68-74b9-583c-8d2d-e117c070f3a9"
@@ -14,7 +14,7 @@ JLD2 = "033835bb-8acc-5ee8-8aae-3f567f8a3819"
 MetaArrays = "36b8f3f0-b776-11e8-061f-1f20094e1fc8"
 ProgressMeter = "92933f4c-e287-5a05-a399-4b506db050ca"
 Requires = "ae029012-a4dd-5104-9daa-d747884805df"
-SampledSignals = "bd7594eb-a658-542f-9e75-4c4d8908c167"
+SignalBase = "00c44e92-20f5-44bc-8f45-a1dcef76ba38"
 Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
@@ -30,14 +30,13 @@ JLD2 = "0.1"
 MetaArrays = "0.2, 0.3"
 ProgressMeter = "0.6,0.7,0.8,0.9,1"
 Requires = "0.5.2,1"
-SampledSignals = "2"
 Unitful = "0.11,0.12,0.13,0.14,0.15,0.16,0.17,0.18,0.19,1"
 julia = "1"
 
 [extras]
 PlotAxes = "8b6f5f00-d239-11e8-3a24-33314b00f6b0"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+SampledSignals = "bd7594eb-a658-542f-9e75-4c4d8908c167"
 
 [targets]
-test = ["PlotAxes", "Test"]
-
+test = ["PlotAxes", "Test", "SampledSignals"]
