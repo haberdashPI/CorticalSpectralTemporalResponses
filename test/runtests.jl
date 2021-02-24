@@ -8,33 +8,34 @@ using PlotAxes
 using CorticalSpectralTemporalResponses
 
 x = #= SampleBuf( =#sin.(2π .* 1000 .* range(0,stop=1,length=8000)) #,8000)
-X = filt(audiospect,x)
-
-as =
+X = filt(audiospect,x,fs=8000)
 
 err = 0.05
 x_hat = filt(inv(audiospect,target_error=err,max_iterations=1000),X)
-as_x_hat = filt(audiospect,x_hat)
+as_x_hat = filt(audiospect,x_hat,fs=8000)
 
 @testset "CorticalSpectralTemporalResponses" begin
 
 @testset "Spectrogram" begin
-  # @test_throws ErrorException filt(audiospect,SampleBuf(collect(1:10),4000))
+  @test_throws ErrorException filt(audiospect,collect(1:10),fs=4000)
+  @test_logs (:warn, r"Unknown framerate") filt(audiospect,collect(1:10))
+  @test_logs filt(audiospect,collect(1:10),fs=8000)
+
   @test mean(X[:,0.9kHz ..1.1kHz]) > mean(X[:,1.9kHz .. 2.1kHz])
   @test sum((as_x_hat .* (mean(X) / mean(as_x_hat)) .- X).^2) ./
     sum(X.^2) <= err
-  X_small = filt(Audiospect(freq_step=2),x)
+  X_small = filt(Audiospect(freq_step=2),x,fs=8000)
   @test nfrequencies(X_small) == 64
   @test mean(X_small[:,0.9kHz ..1.1kHz]) > mean(X_small[:,1.9kHz .. 2.1kHz])
   msg = r"It's recommended that you have a frame length of at least 8.0 samples"
   @test_logs((:warn,msg), Audiospect(Δt = 0.5ms))
 
   data = AxisArray(rand(2000),Axis{:time}(range(0,step=1/8000,length=2000)))
-  @test filt(audiospect,data) isa CorticalSpectralTemporalResponses.AuditorySpectrogram
+  @test filt(audiospect,data,fs=8000) isa CorticalSpectralTemporalResponses.AuditorySpectrogram
   # data = AxisArray(rand(2000),Axis{:time}(range(0,step=1/3000,length=2000)))
   # @test_throws ErrorException("Expected samplerate of 8000 Hz.") filt(audiospect,data)
 
-  @test eltype(filt(audiospect,collect(1:10))) == float(Int)
+  @test eltype(filt(audiospect,collect(1:10),fs=8000)) == float(Int)
 
   @test length(frequencies(X)) > 0
   @test minimum(frequencies(X)) > 0Hz

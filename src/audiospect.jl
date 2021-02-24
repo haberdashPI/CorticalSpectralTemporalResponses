@@ -123,16 +123,20 @@ struct DefaultAudiospect
 end
 const audiospect=DefaultAudiospect()
 
-function DSP.filt(f::DefaultAudiospect,x::AbstractArray,progressbar=true)
-  filt(Audiospect(),x,progressbar)
+function DSP.filt(f::DefaultAudiospect,x::AbstractArray,progressbar=true;fs=missing)
+  filt(Audiospect(),x,progressbar,fs=fs)
 end
 
 inHz(x::Number) = x
 inHz(x::Quantity) = ustrip(uconvert(Hz,x))
 
-function DSP.filt(f::Audiospect,x::AbstractArray,progressbar=true)
+function DSP.filt(f::Audiospect,x::AbstractArray,progressbar=true;fs=missing)
   # if ismissing(framerate(x))
-  @warn "Unknown framerate, assuming 8 kHz."
+  if ismissing(fs)
+    @warn "Unknown framerate, assuming 8 kHz. Please specify samplerate using the `fs` keyword argument."
+  elseif fs != 8000
+    error("Can only accept signals with samplerate of 8kHz. Use `DSP.resample`")
+  end
   # elseif framerate(x) != fixed_fs
     # error("Expected samplerate of $(fixed_fs) Hz.")
   # end
