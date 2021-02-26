@@ -39,4 +39,4 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 SampledSignals = "bd7594eb-a658-542f-9e75-4c4d8908c167"
 
 [targets]
-test = ["PlotAxes", "Test", "SampledSignals"]
+test = ["Test", "SampledSignals"]
