@@ -14,7 +14,7 @@ analysis of complex sounds. The Journal of the Acoustical Society of America,
 Refer to the documentation of each function (ala ? at the REPL) for more information.
 
 You can find the original MATLAB implementation of these models
-[here](https://isr.umd.edu/Labs/NSL/Software.htm).
+[here](http://nsl.isr.umd.edu/downloads.html).
 
 ## Status
 
