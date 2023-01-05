@@ -25,8 +25,8 @@ include("audiospect.jl")
 include("cortical.jl")
 # include("plot_axes.jl")
 
-const localunits = Unitful.basefactors
-const localpromotion = Unitful.promotion
+const localunits = copy(Unitful.basefactors)
+const localpromotion = copy(Unitful.promotion)
 function __init__()
   cochlear[] = jldopen(joinpath(@__DIR__,"..","data","cochba.jld2"),"r") do file
     filters = map(keys(file["filters"])) do ch
